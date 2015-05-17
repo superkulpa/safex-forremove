@@ -37,8 +37,8 @@ class CWatchDog:
 		fs.close();
 
 	def init(self):
-		if instance is None:
-			instance = CWatchDog();
+		#if instance is None:
+		instance = CWatchDog();
 		start_new_thread(instance.run,());
 		return instance;
 
