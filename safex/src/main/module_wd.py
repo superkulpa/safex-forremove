@@ -5,6 +5,7 @@ LED_PATH = '/sys/class/leds/beaglebone:green:usr0';
 WD_Period = 1000*200;
 ledTrigger = LED_PATH + '/trigger';
 ledBrightness = LED_PATH + '/brightness';
+instance = None;
 
 def removeTrigger():
 	fs = open(ledTrigger,'w');
@@ -12,8 +13,6 @@ def removeTrigger():
 	fs.close();
 
 class CWatchDog:
-
-	instance = None;
 
 	def __init__(self):
 		self.loopFlag = True;
