@@ -20,12 +20,11 @@ class CHeartBeat:
     self.ain6 = 0;
     self.pin_alert = 'P9_22';
     GPIO.setup(self.pin_alert,GPIO.OUT);
-    logging.debug( "mysql: CHeartBeat, end")
 
 
   def checkRange(self,_base_v,equ_v,_percent):
     if _base_v == equ_v:
-	    return True;
+      return True;
     value_high = _base_v * (_percent + 1);
     value_low = _base_v * -(_percent + 1);
     if(equ_v > value_low or equ_v < value_high):
@@ -33,25 +32,24 @@ class CHeartBeat:
     return False;
 
   def processH1(self):
+    logging.debug( "mysql: processH1")
     value = (self.ain4 * (1+self.ain5))/100;
-    lastTime = 0;
-    lastValue = 0;
-    mysql.getData_H1(lastTime,lastValue);
+    lastTime, lastValue = mysql.getData_H1();
     difference = datetime.datetime.now() - lastTime;
-    if(difference > 60 or checkRange(lastValue,value,0.03) == False):
-      mysql.addData_H1(value,self.ain5);
+    if(difference > datetime.timedelta(seconds=60) or self.checkRange(lastValue, value, 0.03) == False):
+      mysql.addData_H1(value, self.ain5);
     return 0;
 
   def processH2(self):
-    lastTime = 0;
-    lastValue = 0;
-    mysql.getData_H2(lastTime,lastValue);
+    logging.debug( "mysql: processH2")
+    lastTime,lastValue = mysql.getData_H2();
     difference = datetime.datetime.now() - lastTime;
-    if(difference > 60 or checkRange(lastValue,self.ain6,0.03) == False):
+    if(difference > datetime.timedelta(seconds=60) or self.checkRange(lastValue,self.ain6,0.03) == False):
       mysql.addData_H2(self.ain6);
     return 0;
 
   def processH3(self):
+    logging.debug( "mysql: processH3")
     mysql.replaceData_H3(self.ain6);
     return 0;
 
@@ -81,7 +79,7 @@ class CHeartBeat:
     if(mysql.getH3()):
       self.processH3();
 
-    if(mysql.mStop):
+    if(mysql.getMStop()):
       return 1;
 
     return 0;
