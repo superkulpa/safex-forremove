@@ -1,0 +1,23 @@
+Module 2 heart-beat.
+
+Description
+The 3B start with the start module. In the start module the database will be initialzed. Here the table <start> start
+will create if is not crated. The field run_stop will be set to .true.
+Then this module is finished.
+
+Then we have to initialize the watchdog. The watchdog will togle the port (P8/5 GPIO_2 alive) every 100ms on and off.
+(100ms on and 100ms off) So the electronic knows that the Program is running.
+
+After Initializing this the modul <init> will be start.
+This module is done. It looks in the table for a new date then <init> will set this parameter and/or set I/O's 
+likw H_valve and N_valve.
+
+There are no new fields at this moment!
+
+Flags in the picture:
+H1 -Flag is ovens
+H2 - FLag is room
+
+other please ignore first. I have to compleate the diagramm first.
+
+also see safeX file and BBB-PinportBelegung

@@ -1,0 +1,11 @@
+export PINS=/sys/kernel/debug/pinctrl/44e10800.pinmux/pins
+export SLOTS=/sys/devices/bone_capemgr.9/slots
+
+cur=`pwd`
+
+cd /lib/firmware
+echo AK-GPIO-Test > $SLOTS
+#echo cape-bone-iio > $SLOTS  
+#iio for adcs 
+
+cd $cur

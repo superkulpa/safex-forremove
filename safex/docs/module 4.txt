@@ -1,0 +1,18 @@
+Emergency stop
+
+This Module will stop all activities, like the overload hydrogen concentration.
+The shut down button must be pressed lonnger then 1 second.
+
+The GC will shut down (e.g.) and the valve will closed or open like the setup for hydrogen allert. 
+(including e-Mail notification).
+
+This Module has read the pin port no. ???. If it set for more then 1 sec., the emergency stop will start.
+Also this module has set the field emergency_stop from the table INITIALIZE
+ (the table must get a now column emergency_stop (bit) default = 0 (.false.)) with .true.
+  Is the flag set then all activities will stop immediately. 
+After restart of safex this flag has set to .false.
+
+The number of the pinport I will send you later.
+---
+If the flag is set, all activity will stop (also shutdown of the GC, close valve like settings).
+ After restart (initial) the flag must be reset.

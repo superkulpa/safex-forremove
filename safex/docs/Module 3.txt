@@ -1,0 +1,58 @@
+Module 3 have 3 subroutines. All 3 a nearly the same.
+See safex.png
+
+First we need 3 new tables
+table 1: H_1
+Fields: Idnr (Identnr, Int)
+	Timestamp
+	Value (Int)
+	Temperature (Int)
+
+table 2: H_2
+Fields:	Idnr
+	Timestamp
+	value
+
+table 3: H_3
+Fields: Idnr
+	Timestamp
+	value
+
+Is the timestamp value coded like in MS SQL Server, we need the datetime value
+
+
+Subroutine H_1
+If the Flag h1 (variable ovens) = true See module init
+
+Subroutine H_2
+If the Flag h2 (variable rooms) = true See module init
+
+Subroutine H_3
+If the Flag h3 (variable leaks) = true See module init
+
+
+
+Subroutine H_1 description:
+Get the value from analoge I/O P9 AIN4 and AIN5
+Then we need a equation (now a dummy)
+
+Multiply Value(AIN4) with 1+AIN5/100 (dummy equation)
+
+open the table H_1 (order of timestamp descending)
+get the timestamp and value from row 1.
+compare the timestamp with the actual date time. if it is older then 1 minute, append a new row and insert the actual
+values you have read out (value = result of the equation) also save the temperature of AIN5 and the actual date time.
+
+If the old set of data from the table newer then 1 minute, compare the Value with your equation if it is in a range of
++- 3% of the new value do nothing. otherwise add the new data to the table.
+
+Subroutine H_2 description:
+It the same like H_1 but without calculation and with out temperature.
+You have only to save the value field under the same condition like H_1. The value is P9 AIN6
+
+Subroutine H_3 is easy
+You have override the value of the dataset of table H_3. No Append. So we only have 1 data set in the table.
+The value is P9 AIN6. Do it not faster then 1 time per second.
+
+Thats all. I hope you understand this and I haven't vergott anything.
+
